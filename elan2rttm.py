@@ -64,8 +64,12 @@ def eaf2rttm(path_to_eaf, path_to_write_rttm):
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description="convert .eaf into .rttm")
-	parser.add_argument('-i', '--input', type=str, required=True)
-	parser.add_argument('-o', '--output', type=str, required=True)
+	parser.add_argument('-i', '--input', type=str, required=True,
+                            help="path to the input .eaf file.")
+	parser.add_argument('-o', '--output', type=str, required=True,
+                            help="path to the folder in which to write the output."
+                            "The output .rttm file will have the same name as the "
+                            "input file - except for the extension")
 	args = parser.parse_args()
 
 eaf2rttm(args.input, args.output)
