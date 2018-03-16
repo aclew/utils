@@ -18,16 +18,6 @@ import tgt # tgt is better thant praatio for our application
 
 
 
-def check_textgrid_transcription(textgrid):
-    '''
-        Check if textgrid has "MOT" in it.
-        If it doesn't has MOT, but has "FA1",
-        change FA1 to MOT
-    '''
-    print(" not implemented yet, get out of here ! ")
-    return
-
-
 def textgrid2rttm(textgrid):
     '''
         Take in input the path to a text grid,
@@ -55,10 +45,11 @@ def textgrid2rttm(textgrid):
                               interval.end_time,\
                               interval.text
 
-                if label == "x":
-                    continue
-                elif label == "1" or label == "2":
-                    spkr_timestamps.append((bg, ed-bg))
+                #if label == "x":
+                #    continue
+                #elif label == "1" or label == "2":
+                #    spkr_timestamps.append((bg, ed-bg))
+                spkr_timestamps.append((bg, ed-bg))
 
         # add list of onsets, durations for each speakers
         rttm_out[spkr] = spkr_timestamps
@@ -89,35 +80,37 @@ def write_rttm(rttm_out, basename_whole):
         for spkr in rttm_out:
             for bg, dur in rttm_out[spkr]:
                 fout.write(u'SPEAKER\t{}\t1\t{}\t{}\t'
-                           'speech\t<NA>\t<NA>\t1\n'.format(
+                           '<NA>\t<NA>\tspeech\t<NA>\n'.format(
                              basename_whole.split('/')[-1], bg, dur))
 
 
 if __name__ == '__main__':
     command_example = "python textgrid2rttm.py /folder/"
     parser = argparse.ArgumentParser(epilog=command_example)
-    parser.add_argument('input_folder',
-                        help=''' Input Folder ''')
-    parser.add_argument('output_folder_whole',
-                        help=''' Folder to put whole RTTM in,'''
-                        '''to evaluate using score.py''')
+    parser.add_argument('input_file',
+                        help=''' Input File ''')
+    parser.add_argument('output_file',
+                        help='''Name of the output file in which to write''')
 
     args = parser.parse_args()
-    if not os.path.isdir(args.output_folder_whole):
-        os.makedirs(args.output_folder_whole)
 
-    for fold in os.listdir(args.input_folder):
-        for fin in os.listdir(os.path.join(args.input_folder, fold)):
-            if not fin.endswith('m1.TextGrid'):
-                # read only text grids with full anotation
-                # in this folder
-                continue
+    rttm_out = textgrid2rttm(args.input_file)
+    write_rttm(rttm_out, args.output_file)
+    #if not os.path.isdir(args.output_folder_whole):
+    #    os.makedirs(args.output_folder_whole)
 
-            tg_in = os.path.join(args.input_folder, fold, fin)
-            basename_whole = os.path.join(args.output_folder_whole,
-                                          '_'.join(fin.split('_')[0:3]))
+    #for fold in os.listdir(args.input_folder):
+    #    for fin in os.listdir(os.path.join(args.input_folder, fold)):
+    #        if not fin.endswith('m1.TextGrid'):
+    #            # read only text grids with full anotation
+    #            # in this folder
+    #            continue
 
-            # extract begining/durations of speech intervals
-            rttm_out = textgrid2rttm(tg_in)
-            # write 1 rttm per spkr transcribed in this text grid
-            write_rttm(rttm_out, basename_whole)
+    #        tg_in = os.path.join(args.input_folder, fold, fin)
+    #        basename_whole = os.path.join(args.output_folder_whole,
+    #                                      '_'.join(fin.split('_')[0:3]))
+
+    #        # extract begining/durations of speech intervals
+    #        rttm_out = textgrid2rttm(tg_in)
+    #        # write 1 rttm per spkr transcribed in this text grid
+    #        write_rttm(rttm_out, basename_whole)
