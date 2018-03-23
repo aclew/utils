@@ -80,8 +80,8 @@ def write_rttm(rttm_out, basename_whole):
         for spkr in rttm_out:
             for bg, dur in rttm_out[spkr]:
                 fout.write(u'SPEAKER\t{}\t1\t{}\t{}\t'
-                           '<NA>\t<NA>\tspeech\t<NA>\n'.format(
-                             basename_whole.split('/')[-1], bg, dur))
+                           '<NA>\t<NA>\t{}\t<NA>\n'.format(
+                             basename_whole.split('/')[-1], bg, dur, spkr))
 
 
 if __name__ == '__main__':
