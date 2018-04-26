@@ -7,6 +7,13 @@
 # exported by databrary).
 # it also reads the .eaf file and extracts small wav files containing 
 # only the transcribed parts, along with their transcription in .rttm format
+#
+# The convention is to have your folder arranged in the following way:
+#       $corpus/    
+#           - mp3 files
+#           - raw_$corpus/
+#               - eaf files
+# where $corpus is the name of the corpus.
 
 
 # function to convert all the mp3's into wav, and rename them with the id
