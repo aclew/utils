@@ -55,8 +55,8 @@ def eaf2rttm(path_to_eaf, path_to_write_rttm):
                 start = val[0]
                 end = val[1]
 
-                t0 = EAF.timeslots[start] / sampling_freq
-                length = EAF.timeslots[end] / sampling_freq - t0
+                t0 = float(EAF.timeslots[start]) / sampling_freq
+                length = float(EAF.timeslots[end]) / sampling_freq - t0
 
                 rttm.write(u"SPEAKER\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format
                            (name, 1, "%.2f" % t0, "%.2f" % length, "<NA>", "<NA>", participant, 1 ))
