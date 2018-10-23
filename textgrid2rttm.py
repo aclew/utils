@@ -61,26 +61,13 @@ def write_rttm(rttm_out, basename_whole):
         take a dictionary {spkr:[ (onset, duration) ]} as input
         and write on rttm output by speaker
     '''
-    #for spkr in rttm_out:
-    #    # skip speakers for which there are no annotations
-    #    if len(rttm_out[spkr]) == 0:
-    #        continue
-
-    #    # write 1 rttm per speaker
-    #    with open(basename_per_spkr + '_' + spkr.strip() + '.rttm', 'w')\
-    #            as fout:
-    #        for bg, dur in rttm_out[spkr]:
-    #            fout.write(u'SPEAKER\t{}\t1\t{}\t{}\t'
-    #                       'speech\t<NA>\t<NA>\t<NA>\n'.format(
-    #                         basename_per_spkr.split('/')[-1], bg, dur))
-
     # write one rttm file for the whole wav, indicating
     # only regions of speech, and not the speaker
     with open(basename_whole + '.rttm', 'w') as fout:
         for spkr in rttm_out:
             for bg, dur in rttm_out[spkr]:
-                fout.write(u'SPEAKER\t{}\t1\t{}\t{}\t'
-                           '<NA>\t<NA>\t{}\t<NA>\n'.format(
+                fout.write(u'SPEAKER {} 1 {} {} '
+                           '<NA> <NA> {} <NA>\n'.format(
                              basename_whole.split('/')[-1], bg, dur, spkr))
 
 
