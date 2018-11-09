@@ -1,12 +1,46 @@
-# varia
-Various intermediate scripts useful to the ACLEW project
+# WUT
+This repository contains wrappers to use all the tools available inside the ACLEW Diarization VM.
+These wrappers were created in order to create a more simple user experience
 
-# Required
+## Overall summary
 
-* [pympi](https://github.com/dopefishh/pympi) 
-* [tgt](https://github.com/hbuschme/TextGridTools/)
+### SAD tools
+```
+ldc_sad.sh
+noisemes_sad.sh
+noisemes_full.sh
+opensmile_sad.sh
+tocombo_sad.sh
+```
+### Talker Diarization tools
+```
+diartk.sh
+yunitate.sh
+yuniSeg.sh
+```
+### Scoring tools
+```
+eval.sh
+evalDiar.sh
+evalSAD.sh
+```
+### VM Self-test
+```
+test.sh
+```
+### Utilities
+```
+chat2stm.sh
+check_folder.sh
+chunk.sh
+high_volubility.py
+parse_cha_xml.py
+```
 
-## Scripts
+
+## Further information about some of these
+
+
 
 ### elan2rttm.py
 
@@ -15,7 +49,10 @@ the vocal maturity annotation (coded in tier vcm@CHI), does not appear in the RT
 
 ### textgrid2rttm.py
 
-Convert annotations made using Praat, in .TextGrid format, into rttm transcriptions.
+Convert annotations made using Praat, in .TextGrid format, into rttm transcriptions. Requires:
+
+* [pympi](https://github.com/dopefishh/pympi) 
+* [tgt](https://github.com/hbuschme/TextGridTools/)
 
 ### adjust_timestamps.py
 
@@ -33,7 +70,7 @@ Take a transcription in RTTM format, and convert it to a SAD annotation in RTTM 
 
 This script is called to treat all the daylong recording with their annotations, using the previous adjust_timestamps.py script. It also creates gold SAD rttm using the remove_overlap_rttm.py script previously described. 
 
-## Formats
+## Further info on the formats
 
 ### RTTM
 
