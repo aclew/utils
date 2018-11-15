@@ -29,7 +29,7 @@ if [ -z "$3" ]; then
 fi
 
 
-if ! [[ $model_prefix =~ ^(ldc_sad|noisemes_sad|tocombo_sad|opensmile_sad|lena_sad|lena|yunitator|\
+if ! [[ $model_prefix =~ ^(ldc_sad|noisemesSad|tocomboSad|opensmileSad|lenaSad|lena|yunitator|\
 diartk_ldcSad|diartk_noisemesSad|diartk_tocomboSad|diartk_opensmileSad|diartk_goldSad|\
 yuniseg_ldcSad|yuniseg_noisemesSad|yuniseg_tocomboSad|yuniseg_opensmileSad|yuniseg_goldSad)$ ]]; then
     echo "You're trying to create folders containing the reference transcriptions, and the predicted ones."
@@ -38,8 +38,9 @@ yuniseg_ldcSad|yuniseg_noisemesSad|yuniseg_tocomboSad|yuniseg_opensmileSad|yunis
     exit 1;
 fi
 
+
 # Create temp_ref folder
-mkdir $audio_dir/temp_ref
+mkdir -p $audio_dir/temp_ref
 for wav in `ls $audio_dir/*.wav`; do
     base=$(basename $wav .wav)
     cp $audio_dir/${base}.rttm $audio_dir/temp_ref/${base}.rttm
@@ -56,7 +57,7 @@ done
 
 # Create temp_sys folder and copy all of the sys rttm inside of it
 # Remove the model_prefix of it
-mkdir $audio_dir/temp_sys
+mkdir -p $audio_dir/temp_sys
 for rttm in `ls $audio_dir/${model_prefix}_*.rttm`; do
     base=$(basename $rttm .rttm)
     out=`echo $base | sed "s/${model_prefix}\_//g"`
